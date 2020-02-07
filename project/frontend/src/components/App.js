@@ -18,26 +18,26 @@ class App extends React.Component {
 
     render() {
         return (
-        <Router>
-        <div>
-        <Navigation />
-            <Switch>
-            <Route path="/results" exact component={Results} />
-            <Route path="/profile">
-                <Profile />
-            </Route>
-            <Route path="/login">
-                <Login />
-            </Route>
-            <Route path="/signup">
-                <Signup />
-            </Route>
-            <Route exact path="/">
-                <Home />
-            </Route>
-            </Switch>
-        </div>
-        </Router>
+            <Router>
+            <div>
+            <Navigation />
+                <Switch>
+                <Route path="/results" exact component={Results} />
+                <Route exact path="/profile">
+                    <Profile />
+                </Route>
+                <Route exact path="/login">
+                    <Login />
+                </Route>
+                <Route exact path="/signup">
+                    <Signup />
+                </Route>
+                <Route exact path="/">
+                    <Home />
+                </Route>
+                </Switch>
+            </div>
+            </Router>
     );
     }
 }
