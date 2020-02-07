@@ -6,3 +6,4 @@ project/project/.env
 .DS_STORE
 /static
 node_modules/*
+.env
