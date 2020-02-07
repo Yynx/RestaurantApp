@@ -7,8 +7,6 @@ const Navigation = () => {
         <Navbar
         color="white"
         fixed="top"
-        active="false"
-        transparent="false"
       >
         <Navbar.Brand>
           <Link className={"navbar-item"}to="/">
@@ -28,7 +26,7 @@ const Navigation = () => {
                Profile
            </Link>
            <Link className={"navbar-item"}to="/login">
-               login
+               Login
            </Link>
            <Link className={"navbar-item"}to="/signup">
                Sign up

@@ -1,6 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Navigation from "./Navigation";
+import Home from "./Home";
+import Results from "./Results";
+import Profile from "./Profile";
+import Login from "./Login";
+import Signup from "./Signup";
 
 import {
     BrowserRouter as Router,
@@ -10,48 +15,32 @@ import {
   } from "react-router-dom";
 
 class App extends React.Component {
-    render(){
-        return(
-        <React.Fragment>
+
+    render() {
+        return (
         <Router>
         <div>
         <Navigation />
             <Switch>
-            <Route path="/">
-                <div>
-                    Home
-                </div>
-            </Route>
-            <Route path="/results">
-                <div>
-                    results
-                </div>
-            </Route>
+            <Route path="/results" exact component={Results} />
             <Route path="/profile">
-                <div>
-                    profile
-                </div>
+                <Profile />
             </Route>
             <Route path="/login">
-                <div>
-                    login
-                </div>
+                <Login />
             </Route>
             <Route path="/signup">
-                <div>
-                    signup
-                </div>
+                <Signup />
+            </Route>
+            <Route exact path="/">
+                <Home />
             </Route>
             </Switch>
         </div>
         </Router>
-    </React.Fragment>
-    
     );
     }
 }
     
-
-
 const wrapper = document.getElementById("app");
 wrapper ? ReactDOM.render(<App />, wrapper) : null;
