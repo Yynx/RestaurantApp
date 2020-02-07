@@ -1,0 +1,7 @@
+# env file
+project/.env
+project/project/.env
+*.sqlite3
+*.pyc
+.DS_STORE
+/static
