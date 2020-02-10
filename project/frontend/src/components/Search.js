@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Restaurant from "./Restaurant";
 
 class Search extends React.Component {
     
@@ -29,13 +30,14 @@ class Search extends React.Component {
     }
     
     componentDidUpdate () {
-        console.log(this.state.data)
+        console.log(this.state.data.data.restaurants)
     }
 
     render() {
         return (
             <div>
                 <p>Results</p>
+                {this.state.data && this.state.data.data.restaurants.map((restaurant) => { return (<Restaurant res = {restaurant.restaurant} /> ) })}
             </div>
         )
     }
