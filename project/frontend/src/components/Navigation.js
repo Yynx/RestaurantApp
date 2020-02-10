@@ -46,13 +46,13 @@ const Navigation = () => {
 
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
-          <a className="navbar-item">
+          <Link className="navbar-item" to ="/">
             Home
-          </a>
+          </Link>
 
-          <a className="navbar-item">
-            Documentation
-          </a>
+          <Link className="navbar-item" to="/search">
+            Search
+          </Link>
 
           <div className="navbar-item has-dropdown is-hoverable">
             <a className="navbar-link">
@@ -60,19 +60,16 @@ const Navigation = () => {
             </a>
 
             <div className="navbar-dropdown">
-              <a className="navbar-item">
-                About
-              </a>
-              <a className="navbar-item">
-                Jobs
-              </a>
-              <a className="navbar-item">
+              <Link className="navbar-item" to="/share">
+                Share
+              </Link>
+              <Link className="navbar-item" to="/contact">
                 Contact
-              </a>
+              </Link>
               <hr className="navbar-divider" />
-              <a className="navbar-item">
-                Report an issue
-              </a>
+              <Link className="navbar-item" to="/about">
+                About
+              </Link>
             </div>
           </div>
         </div>
@@ -80,12 +77,12 @@ const Navigation = () => {
         <div className="navbar-end">
           <div className="navbar-item">
             <div className="buttons">
-              <a className="button is-primary">
+              <Link className="button is-primary" to="/signup">
                 <strong>Sign up</strong>
-              </a>
-              <a className="button is-light">
+              </Link>
+              <Link className="button is-light" to="/login">
                 Log in
-              </a>
+              </Link>
             </div>
           </div>
         </div>

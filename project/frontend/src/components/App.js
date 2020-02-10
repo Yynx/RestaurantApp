@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Navigation from "./Navigation";
 import Home from "./Home";
-import Results from "./Results";
+import Search from "./Search";
 import Profile from "./Profile";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -22,7 +22,7 @@ class App extends React.Component {
             <div>
             <Navigation />
                 <Switch>
-                <Route path="/results" exact component={Results} />
+                <Route path="/search" exact component={Search} />
                 <Route exact path="/profile">
                     <Profile />
                 </Route>

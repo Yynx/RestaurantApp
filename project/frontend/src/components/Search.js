@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-class Results extends React.Component {
+class Search extends React.Component {
     
     state = {
         data : null
@@ -29,4 +29,4 @@ class Results extends React.Component {
     }
 }
 
-export default Results;
+export default Search;
