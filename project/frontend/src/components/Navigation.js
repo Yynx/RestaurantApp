@@ -1,39 +1,93 @@
 import {Link} from "react-router-dom";
 import React, { Fragment } from 'react';
 import {Navbar} from 'react-bulma-components';
+import logo from '../images/foogle.png';
 
 const Navigation = () => {
+  document.addEventListener('DOMContentLoaded', () => {
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+  
+      // Add a click event on each of them
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+  
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+  
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+  
+        });
+      });
+    }
+  
+  });
+
     return (
-        <Navbar
-        color="white"
-        fixed="top"
-      >
-        <Navbar.Brand>
-          <Link className={"navbar-item"}to="/">
-            <img src="https://bulma.io/images/bulma-logo.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28" />
+      <nav className="navbar" role="navigation" aria-label="main navigation" >
+      <div className="navbar-brand">
+        <Link className="navbar-item" to="/">
+          <img src={logo} alt="foogle-logo" width="auto" height="28" />
+        </Link>
+
+        <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" className="navbar-menu">
+        <div className="navbar-start">
+          <Link className="navbar-item" to ="/">
+            Home
           </Link>
-          <Navbar.Burger />
-        </Navbar.Brand>
-        <Navbar.Menu >
-          <Navbar.Container>
-           <Link className={"navbar-item"}to="/">
-               Home
-           </Link>
-           <Link className={"navbar-item"}to="/results">
-               Results
-           </Link>
-           <Link className={"navbar-item"}to="/profile">
-               Profile
-           </Link>
-           <Link className={"navbar-item"}to="/login">
-               Login
-           </Link>
-           <Link className={"navbar-item"}to="/signup">
-               Sign up
-           </Link>
-          </Navbar.Container>
-        </Navbar.Menu>
-      </Navbar>
+
+          <Link className="navbar-item" to="/search">
+            Search
+          </Link>
+
+          <div className="navbar-item has-dropdown is-hoverable">
+            <a className="navbar-link">
+              More
+            </a>
+
+            <div className="navbar-dropdown">
+              <Link className="navbar-item" to="/share">
+                Share
+              </Link>
+              <Link className="navbar-item" to="/contact">
+                Contact
+              </Link>
+              <hr className="navbar-divider" />
+              <Link className="navbar-item" to="/about">
+                About
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="navbar-end">
+          <div className="navbar-item">
+            <div className="buttons">
+              <Link className="button is-primary" to="/signup">
+                <strong>Sign up</strong>
+              </Link>
+              <Link className="button is-light" to="/login">
+                Log in
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
   )
 }
 
