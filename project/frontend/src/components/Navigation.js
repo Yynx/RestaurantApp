@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import React, { Fragment } from 'react';
 import {Navbar} from 'react-bulma-components';
-import 
+import logo from '../images/foogle.png';
 
 const Navigation = () => {
   document.addEventListener('DOMContentLoaded', () => {
@@ -34,7 +34,7 @@ const Navigation = () => {
       <nav className="navbar" role="navigation" aria-label="main navigation" >
       <div className="navbar-brand">
         <Link className="navbar-item" to="/">
-          <img src="/foogle.png" width="112" height="28" />
+          <img src={logo} alt="foogle-logo" width="auto" height="28" />
         </Link>
 
         <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" >
