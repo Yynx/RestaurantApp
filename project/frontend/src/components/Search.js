@@ -11,13 +11,25 @@ class Search extends React.Component {
         const headers = {
             'user-key': "89313d2549eb39affea00277f30d405d"
         }
-    
-        axios.get("https://developers.zomato.com/api/v2.1/search?lat=51.509865&lon=-0.118092", {headers})
+
+        let url;
+
+        if (this.props.latitude && this.props.longitude) {
+            url=`https://developers.zomato.com/api/v2.1/search?lat=${this.props.latitude}&lon=${this.props.longitude}`
+        } else if (this.props.searchKeyword) {
+            url=`https://developers.zomato.com/api/v2.1/search?q=${this.props.searchKeyword}`
+        }
+     
+        axios.get(url, {headers})
         .then(response => this.setState({data : response}))
     }
 
     componentDidMount() {
         this.getRestaurants()
+    }
+    
+    componentDidUpdate () {
+        console.log(this.state.data)
     }
 
     render() {
