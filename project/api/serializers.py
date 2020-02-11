@@ -44,7 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(label='ID', read_only=True)
+    id = serializers.PrimaryKeyRelatedField(label='ID', read_only=True)
     username = serializers.CharField(allow_blank=True, required=False)
     email = serializers.EmailField(label='Email Address', required=False, allow_blank=True)
     token = serializers.CharField(allow_blank=True, read_only=True)
@@ -58,6 +58,7 @@ class UserLoginSerializer(serializers.ModelSerializer):
         email = data.get('email', None)
         username = data.get('username', None)
         password = data['password']
+        
         if not email and not username:
             raise ValidationError('Either a username or an email is required to login')
 
@@ -76,7 +77,8 @@ class UserLoginSerializer(serializers.ModelSerializer):
         if user_obj:
             if not user_obj.check_password(password):
                 raise ValidationError('The password you entered was incorrect. Please try again!')
-
+            id = User.objects.get(username=username)
+            data['id'] = id
             payload = jwt_payload_handler(user_obj)
             data['token'] = jwt_encode_handler(payload)
             

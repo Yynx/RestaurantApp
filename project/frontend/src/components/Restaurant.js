@@ -3,12 +3,20 @@ import axios from 'axios';
 
 class Restaurant extends React.Component {
    
-    // saveToFavourites = () => {
-    //     axios.post("http://localhost:8000/api/v1/favourites")
-    // }
+     saveToFavourites = () => {
+        let token = localStorage.getItem("token")
+        let id = localStorage.getItem("id")
+        if (token && id){
+        axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id, user: id}, {headers: {Authorization: `JWT ${token}`}})
+        .then((response) => alert('You saved!'))
+        .catch((error) => console.log(error))
+        } else{
+            alert('You must be logged in to save!')
+        }
+     }
 
     render() {
-
+        console.log(this.props.res.id)
         return (
                 <div class="card">
                 <header class="card-header">
@@ -36,7 +44,7 @@ class Restaurant extends React.Component {
                 </div>
                 </div>
                 <footer class="card-footer">
-                <a href="#" class="card-footer-item">Add to Favourites</a>
+                <a onClick={this.saveToFavourites} class="card-footer-item">Add to Favourites</a>
                 </footer>
 
         </div>

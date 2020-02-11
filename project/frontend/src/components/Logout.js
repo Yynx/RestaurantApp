@@ -5,7 +5,9 @@ const Logout = (props) => {
     return (
         <div>
             <p>Are you sure you want to log out?</p>
-            <button onClick={() => { localStorage.removeItem('token')
+            <button onClick={() => { 
+            localStorage.removeItem('token')
+            localStorage.removeItem('id')
             props.logOut()}}>Yes</button>
         </div>
     )
