@@ -6,5 +6,6 @@ from rest_framework_jwt.views import obtain_jwt_token
 urlpatterns = [
     path('token', obtain_jwt_token),
     path('users', views.UserList.as_view(), name='user-list'),
+    path('favourites', views.FavouritesList.as_view(), name='favourites-list'),
     path('users/login', views.UserLogin.as_view(), name='login-user'),
 ]

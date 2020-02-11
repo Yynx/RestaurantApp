@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from api.models import Favourites
 from django.contrib.auth.models import User
-from api.serializers import UserSerializer, UserLoginSerializer
+from api.serializers import UserSerializer, UserLoginSerializer, FavouritesSerializer
 from rest_framework import generics
 from rest_framework.response import Response 
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.permissions import AllowAny
+
+class FavouritesList(generics.ListCreateAPIView):
+    queryset = Favourites.objects.all()
+    serializer_class = FavouritesSerializer
+    permission_classes = [AllowAny]
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()

@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from api.models import Favourites
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db.models import Q
@@ -8,6 +9,11 @@ jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
 jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 jwt_decode_handler = api_settings.JWT_DECODE_HANDLER
 jwt_get_username_from_payload = api_settings.JWT_PAYLOAD_GET_USERNAME_HANDLER
+
+class FavouritesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favourites
+        fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(label='Email Address', required=True, allow_blank=False)
