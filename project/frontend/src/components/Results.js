@@ -6,7 +6,8 @@ class Results extends React.Component {
     
     state = {
         data : null,
-        mymap : null
+        mymap : null,
+        layerGroup: null
     }
 
     
@@ -30,32 +31,28 @@ class Results extends React.Component {
     }
 
     leaflet = () => {
-     
-       
-this.state.data.data.restaurants.map((restaurant) => { 
-    let mymap = this.state.mymap
-    let marker = L.marker([restaurant.restaurant.location.latitude, restaurant.restaurant.location.longitude]).addTo(mymap)
+    this.state.data.data.restaurants.map((restaurant) => { 
+    let {layerGroup} = this.state
+    let marker = L.marker([restaurant.restaurant.location.latitude, restaurant.restaurant.location.longitude]).addTo(layerGroup)
     marker.bindPopup(`<b>${restaurant.restaurant.name}</b><br/>${restaurant.restaurant.cuisines}<br/>Rating ${restaurant.restaurant.user_rating.aggregate_rating}`).openPopup()
-    this.setState({mymap: mymap})
+    this.setState({layerGroup: layerGroup})
     })
 }
 
     createMap = () => {
-        const mymap = L.map('mapid').setView([51.505, -0.09], 13);
-      const accessToken = 'pk.eyJ1IjoibGF3Y2FrZSIsImEiOiJjazZnb3c3enUwOTg1M2pwOHJmcXNjdnNyIn0.2R2s_StXtwU8C8jDiQAXnA'
+        let mymap = L.map('mapid').setView([51.505, -0.09], 13);
+        const accessToken = 'pk.eyJ1IjoibGF3Y2FrZSIsImEiOiJjazZnb3c3enUwOTg1M2pwOHJmcXNjdnNyIn0.2R2s_StXtwU8C8jDiQAXnA'
             L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`, {
              attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
             id: 'mapbox/streets-v11',
             accessToken: accessToken
             }).addTo(mymap);
-        this.setState({mymap: mymap})
+        let layerGroup = L.layerGroup().addTo(mymap)
+        this.setState({mymap: mymap, layerGroup: layerGroup})
     }
 
-    deleteMap = () => {
-        this.setState({mymap: null})
-    }
-
+    
     componentDidMount() {
         this.createMap()
         this.getRestaurants()
@@ -68,14 +65,10 @@ this.state.data.data.restaurants.map((restaurant) => {
     }
 
     sortBy = (event) => {
-        this.deleteMap()
-        this.createMap()
         const headers = {
             'user-key': "89313d2549eb39affea00277f30d405d"
         }
-
         let sortQuery = event.target.name;
-
         let url;
 
         if (this.props.latitude && this.props.longitude && this.props.searchKeyword) {
@@ -84,9 +77,15 @@ this.state.data.data.restaurants.map((restaurant) => {
             url=`https://developers.zomato.com/api/v2.1/search?lat=${this.props.latitude}&lon=${this.props.longitude}&sort=${sortQuery}`
         }
 
-
         axios.get(url, {headers})
-        .then(response => this.setState({data : response}, () => this.leaflet()))
+        .then(response => {
+            let {layerGroup} = this.state
+            layerGroup.clearLayers();
+            this.setState({data : response, 
+                          layerGroup: layerGroup
+                          }, () => this.leaflet()
+                          )
+            })
 
         event.preventDefault();
         console.log(sortQuery)
