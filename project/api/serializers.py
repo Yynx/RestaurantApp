@@ -15,6 +15,11 @@ class FavouritesSerializer(serializers.ModelSerializer):
         model = Favourites
         fields = '__all__'
 
+class FavouritesAddSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Favourites
+        fields = '__all__'
+
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(label='Email Address', required=True, allow_blank=False)
     class Meta:
@@ -39,12 +44,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserLoginSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(label='ID', read_only=True)
     username = serializers.CharField(allow_blank=True, required=False)
     email = serializers.EmailField(label='Email Address', required=False, allow_blank=True)
     token = serializers.CharField(allow_blank=True, read_only=True)
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'token')
+        fields = ('id', 'username', 'email', 'password', 'token')
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, data):
