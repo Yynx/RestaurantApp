@@ -5,7 +5,8 @@ import Restaurant from "./Restaurant";
 class Results extends React.Component {
     
     state = {
-        data : null
+        data : null,
+        mymap : null
     }
 
     
@@ -29,25 +30,34 @@ class Results extends React.Component {
     }
 
     leaflet = () => {
-
-       const mymap = L.map('mapid').setView([51.505, -0.09], 13);
-        const zoomLevel= 10;
-        const column =5;
-        const row = 2;
-        const accessToken = 'pk.eyJ1IjoibGF3Y2FrZSIsImEiOiJjazZnb3c3enUwOTg1M2pwOHJmcXNjdnNyIn0.2R2s_StXtwU8C8jDiQAXnA'
-        L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`, {
-         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    accessToken: accessToken
-}).addTo(mymap);
+     
+       
 this.state.data.data.restaurants.map((restaurant) => { 
+    let mymap = this.state.mymap
     let marker = L.marker([restaurant.restaurant.location.latitude, restaurant.restaurant.location.longitude]).addTo(mymap)
     marker.bindPopup(`<b>${restaurant.restaurant.name}</b><br/>${restaurant.restaurant.cuisines}<br/>Rating ${restaurant.restaurant.user_rating.aggregate_rating}`).openPopup()
+    this.setState({mymap: mymap})
     })
 }
 
+    createMap = () => {
+        const mymap = L.map('mapid').setView([51.505, -0.09], 13);
+      const accessToken = 'pk.eyJ1IjoibGF3Y2FrZSIsImEiOiJjazZnb3c3enUwOTg1M2pwOHJmcXNjdnNyIn0.2R2s_StXtwU8C8jDiQAXnA'
+            L.tileLayer(`https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}`, {
+             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            accessToken: accessToken
+            }).addTo(mymap);
+        this.setState({mymap: mymap})
+    }
+
+    deleteMap = () => {
+        this.setState({mymap: null})
+    }
+
     componentDidMount() {
+        this.createMap()
         this.getRestaurants()
         this.props.refreshState()
       
@@ -58,8 +68,8 @@ this.state.data.data.restaurants.map((restaurant) => {
     }
 
     sortBy = (event) => {
-        document.getElementById("mapid").outerHTML = ""; // to avoid Error: Map container is already initialized.
-
+        this.deleteMap()
+        this.createMap()
         const headers = {
             'user-key': "89313d2549eb39affea00277f30d405d"
         }
