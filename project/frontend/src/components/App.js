@@ -5,6 +5,7 @@ import Find from "./Find";
 import Results from "./Results";
 import Profile from "./Profile";
 import Login from "./Login";
+import Logout from "./Logout";
 import Signup from "./Signup";
 import axios from "axios";
 
@@ -26,7 +27,9 @@ class App extends React.Component {
         longitude: null,
         error: null,
         submitted: false,
-        fetched: false
+        fetched: false,
+        loggedIn: false,
+        username: null
     }
 
     refreshState = () => {
@@ -87,10 +90,23 @@ class App extends React.Component {
        .catch(error => this.setState({error: error}))
     }
     
-    componentDidUpdate() {
-        console.log(this.state)
+    //set username
+    setUsername = (username) => {
+        this.setState({username : username, loggedIn : true})
     }
 
+    componentDidMount() {
+        if(localStorage.getItem("token")) {
+            this.setState({ loggedIn : true })
+        } else {
+            this.setState({ loggedIn : false })
+        }
+    }
+
+    logOut = () => {
+        this.setState( {loggedIn : false})
+    }
+    
     render() {
         console.log(this.state)
         console.log(this.state.latitude)
@@ -98,19 +114,22 @@ class App extends React.Component {
         return (
             <Router>
             <div>
-            <Navigation />
+            <Navigation loggedIn={this.state.loggedIn} />
                 <Switch>
                 <Route path="/results">
                     <Results searchKeyword={this.state.searchKeyword} longitude={this.state.longitude} latitude={this.state.latitude} refreshState={this.refreshState}/>
                 </Route>
-                <Route exact path="/profile">
-                    <Profile />
-                </Route>
                 <Route exact path="/login">
-                    <Login />
+                    <Login setUsername = {this.setUsername} />
+                </Route>
+                <Route exact path="/logout">
+                    <Logout logOut={this.logOut} />
                 </Route>
                 <Route exact path="/signup">
                     <Signup />
+                </Route>
+                <Route exact path="/profile">
+                    <Profile />
                 </Route>
                 <Route exact path="/">
                     {this.state.submitted ? <Redirect to="/results" /> : <Find handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}

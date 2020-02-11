@@ -1,9 +1,8 @@
 import {Link} from "react-router-dom";
-import React, { Fragment } from 'react';
-import {Navbar} from 'react-bulma-components';
+import React from 'react';
 import logo from '../images/foogle.png';
 
-const Navigation = () => {
+const Navigation = (props) => {
   document.addEventListener('DOMContentLoaded', () => {
 
     // Get all "navbar-burger" elements
@@ -76,9 +75,7 @@ const Navigation = () => {
               <Link className="button is-primary" to="/signup">
                 <strong>Sign up</strong>
               </Link>
-              <Link className="button is-light" to="/login">
-                Log in
-              </Link>
+              {props.loggedIn ? <Link className="button is-light" to="/logout">Log out</Link> : <Link className="button is-light" to="/login">Log In</Link>}
             </div>
           </div>
         </div>
