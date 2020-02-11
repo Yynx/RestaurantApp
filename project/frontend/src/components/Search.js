@@ -8,6 +8,7 @@ class Search extends React.Component {
         data : null
     }
 
+    
     getRestaurants = () => {
         const headers = {
             'user-key': "89313d2549eb39affea00277f30d405d"
@@ -15,10 +16,10 @@ class Search extends React.Component {
 
         let url;
 
-        if (this.props.latitude && this.props.longitude) {
+        if (this.props.latitude && this.props.longitude && this.props.searchKeyword) {
+            url=`https://developers.zomato.com/api/v2.1/search?q=${this.props.searchKeyword}&lat=${this.props.latitude}&lon=${this.props.longitude}`
+        } else if (this.props.latitude && this.props.longitude) {
             url=`https://developers.zomato.com/api/v2.1/search?lat=${this.props.latitude}&lon=${this.props.longitude}`
-        } else if (this.props.searchKeyword) {
-            url=`https://developers.zomato.com/api/v2.1/search?q=${this.props.searchKeyword}`
         }
 
         let newYork = 'https://developers.zomato.com/api/v2.1/search?lat=40.7128&lon=74.0060'
@@ -47,6 +48,7 @@ this.state.data.data.restaurants.map((restaurant) => {
 
     componentDidMount() {
         this.getRestaurants()
+        this.props.refreshState()
       
     }
     

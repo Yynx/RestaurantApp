@@ -22,9 +22,16 @@
   flex-wrap: wrap;
 }
 
+
+
 .input-div {
     width: 100%;
-    width: 600px;
+    max-width: 600px;
+    display: flex;
+}
+
+.stretch {
+    justify-content: stretch;
 }
 
 .margin {
