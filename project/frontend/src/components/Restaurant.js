@@ -2,8 +2,19 @@ import React from 'react';
 
 function Restaurant(props) {
     return (
-        <div>
-            <p>Name: {props.res.name}</p>
+            <div class="card">
+            <header class="card-header">
+            <p class="card-header-title">
+            {props.res.name}
+            </p>
+            <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+            </a>
+            </header>
+            <div class="card-content">
+            <div class="content">
             <p>Location: {props.res.location.address}</p>
             <p>Cuisines: {props.res.cuisines}</p>
             <p>Opening hours: {props.res.timings}</p>
@@ -14,6 +25,12 @@ function Restaurant(props) {
             <p>Has online delivery: {props.res.has_online_delivery}</p>
             <p>Is delivering now: {props.res.is_delivering_now}</p>
             <p>Highlights: {props.res.highlights.map(highlight => highlight)}</p>
+            </div>
+            </div>
+            <footer class="card-footer">
+            <a href="#" class="card-footer-item">Add to Favourites</a>
+            </footer>
+
         </div>
     )
 }

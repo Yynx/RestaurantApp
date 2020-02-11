@@ -1,7 +1,7 @@
 import React from "react";
 import '../css/style.css';
 
-class Home extends React.Component {
+class Find extends React.Component {
 
     render() {
         return (
@@ -37,4 +37,4 @@ class Home extends React.Component {
     }
 }
 
-export default Home;
+export default Find;

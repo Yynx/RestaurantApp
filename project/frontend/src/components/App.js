@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Navigation from "./Navigation";
-import Home from "./Home";
-import Search from "./Search";
+import Find from "./Find";
+import Results from "./Results";
 import Profile from "./Profile";
 import Login from "./Login";
 import Signup from "./Signup";
@@ -100,8 +100,8 @@ class App extends React.Component {
             <div>
             <Navigation />
                 <Switch>
-                <Route path="/search">
-                    <Search searchKeyword={this.state.searchKeyword} longitude={this.state.longitude} latitude={this.state.latitude} refreshState={this.refreshState}/>
+                <Route path="/results">
+                    <Results searchKeyword={this.state.searchKeyword} longitude={this.state.longitude} latitude={this.state.latitude} refreshState={this.refreshState}/>
                 </Route>
                 <Route exact path="/profile">
                     <Profile />
@@ -113,7 +113,7 @@ class App extends React.Component {
                     <Signup />
                 </Route>
                 <Route exact path="/">
-                    {this.state.submitted ? <Redirect to="/search" /> : <Home handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}
+                    {this.state.submitted ? <Redirect to="/results" /> : <Find handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}
                 </Route>
                 </Switch>
             </div>

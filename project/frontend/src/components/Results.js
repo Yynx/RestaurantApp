@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Restaurant from "./Restaurant";
 
-class Search extends React.Component {
+class Results extends React.Component {
     
     state = {
         data : null
@@ -22,13 +22,14 @@ class Search extends React.Component {
             url=`https://developers.zomato.com/api/v2.1/search?lat=${this.props.latitude}&lon=${this.props.longitude}`
         }
 
-        let newYork = 'https://developers.zomato.com/api/v2.1/search?lat=40.7128&lon=74.0060'
+        // let newYork = 'https://developers.zomato.com/api/v2.1/search?lat=40.7128&lon=74.0060'
      
         axios.get(url, {headers})
         .then(response => this.setState({data : response}, () => this.leaflet()))
     }
 
     leaflet = () => {
+
        const mymap = L.map('mapid').setView([51.505, -0.09], 13);
         const zoomLevel= 10;
         const column =5;
@@ -56,18 +57,59 @@ this.state.data.data.restaurants.map((restaurant) => {
         console.log(this.state.data)
     }
 
+    sortBy = (event) => {
+        document.getElementById("mapid").outerHTML = ""; // to avoid Error: Map container is already initialized.
+
+        const headers = {
+            'user-key': "89313d2549eb39affea00277f30d405d"
+        }
+
+        let sortQuery = event.target.name;
+
+        let url;
+
+        if (this.props.latitude && this.props.longitude && this.props.searchKeyword) {
+            url=`https://developers.zomato.com/api/v2.1/search?q=${this.props.searchKeyword}&lat=${this.props.latitude}&lon=${this.props.longitude}&sort=${sortQuery}`
+        } else if (this.props.latitude && this.props.longitude) {
+            url=`https://developers.zomato.com/api/v2.1/search?lat=${this.props.latitude}&lon=${this.props.longitude}&sort=${sortQuery}`
+        }
+
+
+        axios.get(url, {headers})
+        .then(response => this.setState({data : response}, () => this.leaflet()))
+
+        event.preventDefault();
+        console.log(sortQuery)
+    }
+
     render() {
-        return (
+        return ( 
             <div>
-                <p>Results</p>
                 <div id="mapid"></div>
+                <div class="columns">
+                <aside class="menu column is-one-fifth">
+                    <p class="menu-label">
+                        Sort by:
+                    </p>
+                    <ul class="menu-list">
+                        <li><a name="rating" onClick={(event) => this.sortBy(event)}>Rating</a></li>
+                        <li><a name="cost" onClick={(event) => this.sortBy(event)}>Cost</a></li>
+                        <li><a name="real_distance" onClick={(event) => this.sortBy(event)}>Distance</a></li>
+                    </ul>
+                </aside>
+
+                <div class="column">
                 
                 {this.state.data && this.state.data.data.restaurants.map((restaurant) => { 
                     return (
                 <Restaurant res = {restaurant.restaurant} /> ) })}
+                </div>
+
+                </div>
+                
             </div>
         )
     }
 }
 
-export default Search;
+export default Results;

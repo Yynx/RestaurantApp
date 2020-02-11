@@ -47,11 +47,7 @@ const Navigation = () => {
       <div id="navbarBasicExample" className="navbar-menu">
         <div className="navbar-start">
           <Link className="navbar-item" to ="/">
-            Home
-          </Link>
-
-          <Link className="navbar-item" to="/search">
-            Search
+            Find
           </Link>
 
           <div className="navbar-item has-dropdown is-hoverable">
