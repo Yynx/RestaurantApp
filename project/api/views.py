@@ -10,6 +10,10 @@ from rest_framework.permissions import AllowAny
 class FavouritesList(generics.ListCreateAPIView):
     queryset = Favourites.objects.all()
     serializer_class = FavouritesSerializer
+
+    def get_queryset(self):
+        return Favourites.objects.filter(user=self.request.user)
+
     def post(self, request, *args, **kwargs):
         data = request.data 
         data['user'] = request.user.id
