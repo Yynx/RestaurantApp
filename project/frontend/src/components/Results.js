@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import Restaurant from "./Restaurant";
+import mapIcon from "../images/pin.png";
 
 class Results extends React.Component {
     
@@ -31,10 +32,13 @@ class Results extends React.Component {
     }
 
     leaflet = () => {
-    this.state.data.data.restaurants.map((restaurant) => { 
+
     let {layerGroup} = this.state
+    let posMarker = L.marker([this.props.latitude, this.props.longitude]).addTo(layerGroup)
+    posMarker.bindPopup(`<b>Your current location!</b>`).openPopup()
+    this.state.data.data.restaurants.map((restaurant) => { 
     let marker = L.marker([restaurant.restaurant.location.latitude, restaurant.restaurant.location.longitude]).addTo(layerGroup)
-    marker.bindPopup(`<b>${restaurant.restaurant.name}</b><br/>${restaurant.restaurant.cuisines}<br/>Rating ${restaurant.restaurant.user_rating.aggregate_rating}`).openPopup()
+    marker.bindPopup(`<b>${restaurant.restaurant.name}</b><br/>${restaurant.restaurant.cuisines}<br/>Rating ${restaurant.restaurant.user_rating.aggregate_rating}`)
     this.setState({layerGroup: layerGroup})
     })
 }
@@ -49,6 +53,7 @@ class Results extends React.Component {
             accessToken: accessToken
             }).addTo(mymap);
         let layerGroup = L.layerGroup().addTo(mymap)
+        
         this.setState({mymap: mymap, layerGroup: layerGroup})
     }
 
