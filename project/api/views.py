@@ -4,13 +4,14 @@ from django.contrib.auth.models import User
 from api.serializers import UserSerializer, UserLoginSerializer, FavouritesSerializer
 from rest_framework import generics
 from rest_framework.response import Response 
-from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT
 from rest_framework.permissions import AllowAny
 
 class FavouritesList(generics.ListCreateAPIView):
     queryset = Favourites.objects.all()
     serializer_class = FavouritesSerializer
-
+    permission_classes = [AllowAny]
+    
     def get_queryset(self):
         return Favourites.objects.filter(user=self.request.user)
 
@@ -24,6 +25,10 @@ class FavouritesList(generics.ListCreateAPIView):
             new_data = serializer.data
             return Response(new_data, status=HTTP_200_OK)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+
+class FavouritesDelete(generics.DestroyAPIView):
+    queryset = Favourites.objects.all()
+    serializer_class = FavouritesSerializer
 
 class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()

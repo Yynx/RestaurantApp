@@ -15,12 +15,25 @@ class Favourite extends React.Component {
         .catch((error) => console.log(error))
      }
 
+     deleteFromFavourites = () => {
+        let token = localStorage.getItem("token")
+        //let id = localStorage.getItem("id")
+        if (token){
+        axios.delete(`http://localhost:8000/api/v1/favourites/${this.props.fav_id}/`, {headers: {Authorization: `JWT ${token}`}})
+        .then((response) => console.log(response))
+        .catch((error) => console.log(response))
+        } else{
+            alert('You must be logged in')
+        }
+     }
+
      componentDidMount(){
          this.getRestaurantInfo()
      }
 
      componentDidUpdate(){
-         console.log(this.state.data)
+        // console.log(this.state.data)
+         console.log(this.props)
      }
 
     render() {
@@ -51,7 +64,7 @@ class Favourite extends React.Component {
            </div>
            </div>
            <footer class="card-footer">
-           <a class="card-footer-item">Delete</a>
+           <a onClick={this.deleteFromFavourites} class="card-footer-item">Delete</a>
            </footer> 
 
    </div>}

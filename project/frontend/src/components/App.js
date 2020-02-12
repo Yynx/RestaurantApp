@@ -138,7 +138,7 @@ class App extends React.Component {
                     <Signup />
                 </Route>
                 <Route exact path="/profile">
-                    <Profile />
+                    <Profile username={this.state.username} />
                 </Route>
                 <Route exact path="/">
                     {this.state.submitted ? <Redirect to="/results" /> : <Find handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}

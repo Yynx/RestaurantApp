@@ -9,6 +9,5 @@ urlpatterns = [
     path('users', views.UserList.as_view(), name='user-list'),
     path('favourites', views.FavouritesList.as_view(), name='favourites-list'),
     path('users/login', views.UserLogin.as_view(), name='login-user'),
-   # path('favourites/<int:pk>', views.FavouriteDetail.as_view(), name='favourites-detail'),
-   # path('favourites/<int:pk>', views.FavouritesDelete.as_view(), name='del-favourites')
+    path('favourites/<int:pk>/', views.FavouritesDelete.as_view(), name='del-favourites')
 ]

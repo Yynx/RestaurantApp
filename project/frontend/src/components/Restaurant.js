@@ -8,8 +8,8 @@ class Restaurant extends React.Component {
         //let id = localStorage.getItem("id")
         if (token){
         axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id}, {headers: {Authorization: `JWT ${token}`}})
-        .then((response) => alert('You saved!'))
-        .catch((error) => console.log(error))
+        .then((response) => response)
+        .catch((error) => alert('You must be logged in to save!'))
         } else{
             alert('You must be logged in to save!')
         }
