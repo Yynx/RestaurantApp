@@ -5,9 +5,9 @@ class Restaurant extends React.Component {
    
      saveToFavourites = () => {
         let token = localStorage.getItem("token")
-        let id = localStorage.getItem("id")
-        if (token && id){
-        axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id, user: id}, {headers: {Authorization: `JWT ${token}`}})
+        //let id = localStorage.getItem("id")
+        if (token){
+        axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id}, {headers: {Authorization: `JWT ${token}`}})
         .then((response) => alert('You saved!'))
         .catch((error) => console.log(error))
         } else{

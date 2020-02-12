@@ -16,7 +16,6 @@ import {
     Link, 
     Redirect
   } from "react-router-dom";
-import Axios from "axios";
 
 class App extends React.Component {
 
@@ -96,8 +95,18 @@ class App extends React.Component {
     }
 
     componentDidMount() {
-        if(localStorage.getItem("token")) {
-            this.setState({ loggedIn : true })
+        // get user id & jwt token from local storage
+        // then refresh the token,
+        // if token is expired logout user
+        let token = localStorage.getItem("token")
+        // let id = localStorage.getItem("id")
+        if(token) {
+            axios.post('/api/v1/refresh', {token: token})
+            .then((response) => {
+                localStorage.setItem('token', response.data.token)
+                this.setState({ loggedIn : true })
+            })
+            .catch(() => this.setState({ loggedIn : false }))
         } else {
             this.setState({ loggedIn : false })
         }

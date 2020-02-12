@@ -15,11 +15,6 @@ class FavouritesSerializer(serializers.ModelSerializer):
         model = Favourites
         fields = '__all__'
 
-class FavouritesAddSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Favourites
-        fields = '__all__'
-
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(label='Email Address', required=True, allow_blank=False)
     class Meta:
