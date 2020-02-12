@@ -61,7 +61,7 @@ class Results extends React.Component {
     }
     
     componentDidUpdate () {
-        console.log(this.state.data)
+        //console.log(this.state.data)
     }
 
     sortBy = (event) => {
@@ -88,7 +88,7 @@ class Results extends React.Component {
             })
 
         event.preventDefault();
-        console.log(sortQuery)
+        //console.log(sortQuery)
     }
 
     render() {

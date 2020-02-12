@@ -17,7 +17,7 @@ class Favourites extends React.Component {
         .then((response) => 
         {response.data.length === 0 ? this.setState({ noData : true }) : null
         this.setState({data: response.data})})
-        .catch((error) => console.log(error))
+        .catch((error) => error)
         } else {
             alert('You must be logged in to save!')
         }
@@ -29,7 +29,7 @@ class Favourites extends React.Component {
      }
 
      componentDidUpdate(){
-         console.log(this.state.data)
+        // console.log(this.state.data)
      }
   
      errorMessage = () => {

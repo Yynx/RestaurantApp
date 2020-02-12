@@ -28,7 +28,8 @@ class App extends React.Component {
         submitted: false,
         fetched: false,
         loggedIn: false,
-        username: null
+        username: null,
+        signedUp: false,
     }
 
     refreshState = () => {
@@ -74,7 +75,7 @@ class App extends React.Component {
         navigator.geolocation.getCurrentPosition(this.getGeoPositionSuccess, this.getGeoPositionError, this.geoOptions);
         
         event.preventDefault()
-        console.log('getGeoPosition was pressed!')
+        //console.log('getGeoPosition was pressed!')
     }
     
     //second input
@@ -115,11 +116,15 @@ class App extends React.Component {
     logOut = () => {
         this.setState( {loggedIn : false})
     }
+
+    signUpHandler = () => {
+        this.setState({signedUp: true})
+    }
     
     render() {
-        console.log(this.state)
-        console.log(this.state.latitude)
-        console.log(this.state.error)
+        //console.log(this.state)
+        //console.log(this.state.latitude)
+        //console.log(this.state.error)
         return (
             <Router>
             <div>
@@ -129,14 +134,13 @@ class App extends React.Component {
                     <Results searchKeyword={this.state.searchKeyword} longitude={this.state.longitude} latitude={this.state.latitude} refreshState={this.refreshState}/>
                 </Route>
                 <Route exact path="/login">
-                    <Login setUsername = {this.setUsername} />
+                    {this.state.loggedIn? <Redirect to="/favourites"/>:<Login signUpHandler={this.signUpHandler} setUsername = {this.setUsername} />}
                 </Route>
                 <Route exact path="/logout">
-                    <Logout logOut={this.logOut} />
+                    {this.state.loggedIn? <Logout logOut={this.logOut} /> : <Redirect to="/login"/>}
                 </Route>
-                <Route exact path="/signup">
-                    <Signup />
-                </Route>
+                <Route exact path="/signup" component={Signup}/>
+                
                 <Route exact path="/favourites">
                     <Favourites username={this.state.username} />
                 </Route>

@@ -16,7 +16,7 @@ class Restaurant extends React.Component {
      }
 
     render() {
-        console.log(this.props.res.id)
+        //console.log(this.props.res.id)
         return (
                 <div class="card">
                 <header class="card-header">

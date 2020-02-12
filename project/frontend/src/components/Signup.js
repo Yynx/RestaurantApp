@@ -19,9 +19,13 @@ class Signup extends React.Component {
         if (this.state.password !== this.state.password2) {
             alert("Your passwords do not match!")
         } else {
+            let {history} = this.props
             axios.post("http://localhost:8000/api/v1/users", {username: this.state.username, password: this.state.password, email: this.state.email})
-            .then(response => alert("You can now log in."))
-            .catch(error => console.log(error))
+            .then(response => {
+                alert("You can now log in.")
+                history.push('/login')
+            })
+            .catch((err)=> err)
         }
     }
 
