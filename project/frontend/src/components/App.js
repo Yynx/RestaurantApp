@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import Navigation from "./Navigation";
 import Find from "./Find";
 import Results from "./Results";
-import Profile from "./Profile";
+import Favourites from "./Favourites";
 import Login from "./Login";
 import Logout from "./Logout";
 import Signup from "./Signup";
@@ -137,8 +137,8 @@ class App extends React.Component {
                 <Route exact path="/signup">
                     <Signup />
                 </Route>
-                <Route exact path="/profile">
-                    <Profile username={this.state.username} />
+                <Route exact path="/favourites">
+                    <Favourites username={this.state.username} />
                 </Route>
                 <Route exact path="/">
                     {this.state.submitted ? <Redirect to="/results" /> : <Find handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}

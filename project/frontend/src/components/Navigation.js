@@ -49,25 +49,11 @@ const Navigation = (props) => {
             Find
           </Link>
 
-          <div className="navbar-item has-dropdown is-hoverable">
-            <a className="navbar-link">
-              More
-            </a>
-
-            <div className="navbar-dropdown">
-              <Link className="navbar-item" to="/share">
-                Share
-              </Link>
-              <Link className="navbar-item" to="/contact">
-                Contact
-              </Link>
-              <hr className="navbar-divider" />
-              <Link className="navbar-item" to="/about">
-                About
-              </Link>
-            </div>
+          {props.loggedIn ?
+          <Link className="navbar-item" to="/favourites">
+         My Favourites
+          </Link> : null}
           </div>
-        </div>
 
         <div className="navbar-end">
           <div className="navbar-item">

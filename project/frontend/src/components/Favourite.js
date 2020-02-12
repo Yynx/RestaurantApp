@@ -10,6 +10,7 @@ class Favourite extends React.Component {
         const headers = {
             'user-key': "89313d2549eb39affea00277f30d405d"
         }
+
         axios.get(`https://developers.zomato.com/api/v2.1/restaurant?res_id=${this.props.id}`, {headers})
         .then((response) => this.setState({data: response.data}))
         .catch((error) => console.log(error))
@@ -20,7 +21,7 @@ class Favourite extends React.Component {
         //let id = localStorage.getItem("id")
         if (token){
         axios.delete(`http://localhost:8000/api/v1/favourites/${this.props.fav_id}/`, {headers: {Authorization: `JWT ${token}`}})
-        .then((response) => console.log(response))
+        .then((response) => this.props.getUsersFavourites())
         .catch((error) => console.log(response))
         } else{
             alert('You must be logged in')

@@ -15,6 +15,14 @@ class FavouritesSerializer(serializers.ModelSerializer):
         model = Favourites
         fields = '__all__'
 
+    def validate(self, data):
+        res_id= data.get('res_id')
+        user = data.get('user')
+        res_id_obj = Favourites.objects.filter(res_id=res_id, user=user)
+        if res_id_obj.exists():
+            raise ValidationError("You have already added this restaurant to your Favourites.")
+        return data
+
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(label='Email Address', required=True, allow_blank=False)
     class Meta:
