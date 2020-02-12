@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 class Restaurant extends React.Component {
-   
+ 
      saveToFavourites = () => {
         let token = localStorage.getItem("token")
         //let id = localStorage.getItem("id")
