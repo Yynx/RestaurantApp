@@ -2,16 +2,16 @@ import React from 'react';
 import axios from 'axios';
 
 class Restaurant extends React.Component {
- 
+
      saveToFavourites = () => {
         let token = localStorage.getItem("token")
         //let id = localStorage.getItem("id")
         if (token){
         axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id}, {headers: {Authorization: `JWT ${token}`}})
         .then((response) => response)
-        .catch((error) => alert('You must be logged in to save!'))
+        .catch((error) => alert('You have already added this to your Favourites list.'))
         } else{
-            alert('You must be logged in to save!')
+            alert('You must be logged in to save.')
         }
      }
 
