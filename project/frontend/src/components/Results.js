@@ -26,7 +26,62 @@ class Results extends React.Component {
             url=`https://developers.zomato.com/api/v2.1/search?lat=${this.props.latitude}&lon=${this.props.longitude}`
         }
         axios.get(url, {headers})
-        .then(response => this.setState({data : response}, () => this.leaflet()))
+        .then(response => {
+           
+            this.setState({data : response}, () => this.leaflet())
+         
+        })
+    }
+
+    sortCostLowToHigh = () => {
+        let array = [...this.state.data.data.restaurants];
+        let costLowToHigh = array.sort((a,b) => {
+            return a.restaurant.average_cost_for_two - b.restaurant.average_cost_for_two
+        })
+        this.setState((prevState) => {
+            let data = {...prevState.data}
+            data.data.restaurants = costLowToHigh
+            return {data: data}
+        })
+    }
+
+    sortRatingLowToHigh = () => {
+        let array = [...this.state.data.data.restaurants];
+        let ratingLowToHigh = array.sort((a,b) => {
+            
+            return parseFloat(a.restaurant.user_rating.aggregate_rating) - parseFloat(b.restaurant.user_rating.aggregate_rating)
+        })
+        this.setState((prevState) => {
+            let data = {...prevState.data}
+            data.data.restaurants = ratingLowToHigh
+            return {data: data}
+        })
+    }
+
+    sortCostHighToLow = () => {
+        let array = [...this.state.data.data.restaurants];
+        let costHighToLow = array.sort((a,b) => {
+            return b.restaurant.average_cost_for_two - a.restaurant.average_cost_for_two
+        })
+        this.setState((prevState) => {
+            let data = {...prevState.data}
+            data.data.restaurants = costHighToLow
+            return {data: data}
+        })
+    }
+
+    
+    sortRatingHighToLow = () => {
+        let array = [...this.state.data.data.restaurants];
+        let ratingHighToLow = array.sort((a,b) => {
+            
+            return parseFloat(b.restaurant.user_rating.aggregate_rating) - parseFloat(a.restaurant.user_rating.aggregate_rating)
+        })
+        this.setState((prevState) => {
+            let data = {...prevState.data}
+            data.data.restaurants = ratingHighToLow
+            return {data: data}
+        })
     }
 
     getCuisines = () => {
@@ -37,7 +92,6 @@ class Results extends React.Component {
         axios.get(url, {headers})
         .then(response => this.setState({cuisines : response.data.cuisines})
         )
-           
     }
 
     leaflet = () => {
@@ -110,7 +164,6 @@ class Results extends React.Component {
         });
     }
 
-
     handleCuisineChange = (event) => {
         const {name} = event.target
         this.setState({
@@ -121,8 +174,8 @@ class Results extends React.Component {
     filterByCuisine = () => {
         let cuisinesObj = new Object()
         let cusineResults = this.state.data ? this.state.data.data.restaurants.map((item) => {
-            let cuisinesStr = item.restaurant.cuisines
-            let cuisinesArray = cuisinesStr.split(',')
+        let cuisinesStr = item.restaurant.cuisines
+        let cuisinesArray = cuisinesStr.split(',')
             for(let i = 0; i < cuisinesArray.length; i++ ){
                 let cuisine = cuisinesArray[i].trim()
                if(cuisinesObj.hasOwnProperty(cuisine)){
@@ -135,6 +188,7 @@ class Results extends React.Component {
         }) : null
         return cusineResults
     }
+
     render() {
        let cusineResults = this.filterByCuisine()
         return ( 
@@ -155,37 +209,25 @@ class Results extends React.Component {
                     </li>
                     <li><a 
                     name="cost"
-                    onClick={this.handleSortChange}
-                    >cost</a>
+                    onClick={this.sortCostLowToHigh}
+                    >Cost-<b>low to high</b></a>
+                    </li>
+                    <li><a 
+                    name="cost"
+                    onClick={this.sortCostHighToLow}
+                    >Cost-<b>high to low</b></a>
                     </li>
                     <li><a 
                     name="rating"
-                    onClick={this.handleSortChange}                   
-                    >rating</a>
+                    onClick={this.sortRatingLowToHigh}                   
+                    >Rating-<b>low to high</b></a>
                     </li>
-                    <li><a
-                    name="real_distance"
-                    onClick={this.handleSortChange}                    
-                    >distance</a></li>
+                    <li><a 
+                    name="rating"
+                    onClick={this.sortRatingHighToLow}                   
+                    >Rating-<b>high to low</b></a>
+                    </li>
                     </ul>
-                    {this.state.sort !== "real_distance"  && <p class="menu-label">
-                        Order by:
-                    </p>}
-                    {this.state.sort !== "real_distance" &&
-                    <ul class="menu-list">
-                    <li><a
-                    name=""
-                    onClick={this.handleOrderChange}
-                    ></a></li>
-                    <li><a
-                    name="asc"
-                    onClick={this.handleOrderChange}
-                    >low to high</a></li>
-                    <li><a
-                    name="desc"
-                    onClick={this.handleOrderChange}
-                    >high to low</a></li>
-                    </ul> }
                     {this.state.cuisines && <p class="menu-label">Cuisine:</p>}
                     {this.state.cuisines && cusineResults && <Cuisines 
                     cuisines={this.state.cuisines} cusineResults={cusineResults}
