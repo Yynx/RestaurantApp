@@ -3,9 +3,12 @@ import axios from 'axios';
 
 class Restaurant extends React.Component {
 
+    state = {
+        showPhotos: false
+    }
+
      saveToFavourites = () => {
         let token = localStorage.getItem("token")
-        //let id = localStorage.getItem("id")
         if (token){
         axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id}, {headers: {Authorization: `JWT ${token}`}})
         .then((response) => response)
@@ -15,8 +18,11 @@ class Restaurant extends React.Component {
         }
      }
 
+     handleClick = (event) => {
+        this.setState({showPhotos: !this.state.showPhotos})
+     }
+
     render() {
-        //console.log(this.props.res.id)
         return (
                 <div class="card">
                 <header class="card-header">
@@ -40,7 +46,13 @@ class Restaurant extends React.Component {
                 <p>User ratings: {this.props.res.user_rating.aggregate_rating}</p>
                 <p>Has online delivery: {this.props.res.has_online_delivery}</p>
                 <p>Is delivering now: {this.props.res.is_delivering_now}</p>
-                <p>Highlights: {this.props.res.highlights.map(highlight => highlight)}</p>
+                <p>Highlights: {this.props.res.highlights.map((highlight) => highlight)}</p>
+                 <a onClick={() => this.handleClick()} >Show Photos</a> 
+                 {!this.state.showPhotos && <img src={this.props.res.photos[0].photo.thumb_url} alt={`${this.props.res.name}`}/>} 
+                {this.state.showPhotos && this.props.res.photos.map((photo, index) => {
+                 return (<img src={photo.photo.thumb_url} alt={`${this.props.res.name} ${index}`}/>)
+                })
+                } 
                 </div>
                 </div>
                 <footer class="card-footer">
