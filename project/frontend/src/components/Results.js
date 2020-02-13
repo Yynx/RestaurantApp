@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Restaurant from "./Restaurant";
 import Cuisines from "./Cuisines";
+import { getDistance } from 'geolib';
 
 class Results extends React.Component {
     
@@ -30,6 +31,48 @@ class Results extends React.Component {
            
             this.setState({data : response}, () => this.leaflet())
          
+        })
+    }
+
+    sortDistanceLowToHigh = () => {
+        let array = [...this.state.data.data.restaurants];
+        let distanceLowToHigh = array.sort((a,b) => {
+            let distanceA = getDistance(
+                { latitude: this.props.latitude, longitude: this.props.longitude },
+                { latitude: a.restaurant.location.latitude, longitude: a.restaurant.location.longitude }
+            )
+
+            let distanceB = getDistance(
+                { latitude: this.props.latitude, longitude: this.props.longitude },
+                { latitude: b.restaurant.location.latitude, longitude: b.restaurant.location.longitude }
+            )
+            return distanceA - distanceB;
+        })
+        this.setState((prevState) => {
+            let data = {...prevState.data}
+            data.data.restaurants = distanceLowToHigh
+            return {data: data}
+        })
+    }
+
+    sortDistanceHighToLow = () => {
+        let array = [...this.state.data.data.restaurants];
+        let distanceHighToLow = array.sort((a,b) => {
+            let distanceA = getDistance(
+                { latitude: this.props.latitude, longitude: this.props.longitude },
+                { latitude: a.restaurant.location.latitude, longitude: a.restaurant.location.longitude }
+            )
+
+            let distanceB = getDistance(
+                { latitude: this.props.latitude, longitude: this.props.longitude },
+                { latitude: b.restaurant.location.latitude, longitude: b.restaurant.location.longitude }
+            )
+            return distanceB - distanceA;
+        })
+        this.setState((prevState) => {
+            let data = {...prevState.data}
+            data.data.restaurants = distanceHighToLow
+            return {data: data}
         })
     }
 
@@ -226,6 +269,16 @@ class Results extends React.Component {
                     name="rating"
                     onClick={this.sortRatingHighToLow}                   
                     >Rating-<b>high to low</b></a>
+                    </li>
+                    <li><a 
+                    name="distance"
+                    onClick={this.sortDistanceLowToHigh}                   
+                    >Distance-<b>low to high</b></a>
+                    </li>
+                    <li><a 
+                    name="distance"
+                    onClick={this.sortDistanceHighToLow}                   
+                    >Distance-<b>high to low</b></a>
                     </li>
                     </ul>
                     {this.state.cuisines && <p class="menu-label">Cuisine:</p>}
