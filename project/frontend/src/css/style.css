@@ -81,6 +81,19 @@ i.fas.fa-map-marker-alt {
     text-align: center;
 }
 
+.logout-card {
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.width-30 {
+    width: 30%;
+}
+
 /* loading animation */
 .loader-wrapper {
     position: absolute;
