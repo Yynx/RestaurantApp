@@ -4,7 +4,8 @@ import axios from 'axios';
 class Restaurant extends React.Component {
 
     state = {
-        showPhotos: false
+        showPhotos: false,
+        error: false
     }
 
      saveToFavourites = () => {
@@ -12,9 +13,16 @@ class Restaurant extends React.Component {
         if (token){
         axios.post("http://localhost:8000/api/v1/favourites", {res_id: this.props.res.id}, {headers: {Authorization: `JWT ${token}`}})
         .then((response) => response)
-        .catch((error) => alert('You have already added this to your Favourites list.'))
+        .catch((error) => 
+        {   if(error.response.status === 401){
+               this.setState({error:'You must be logged in to save'})
+        } else {
+            this.setState({error:'You have already added this'})
+        }
+             
+     } )
         } else{
-            alert('You must be logged in to save.')
+            this.setState({error:'You must be logged in to save'})
         }
      }
 
@@ -55,8 +63,10 @@ class Restaurant extends React.Component {
                 } 
                 </div>
                 </div>
+                {this.state.error && <p>{this.state.error}</p>}
                 <footer class="card-footer">
                 <a onClick={this.saveToFavourites} class="card-footer-item">Add to Favourites</a>
+                
                 </footer>
 
         </div>
