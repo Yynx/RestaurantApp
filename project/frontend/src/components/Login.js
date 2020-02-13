@@ -29,13 +29,12 @@ class Login extends React.Component {
         let token = localStorage.getItem('token') || null
 
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className="form-div">
+                <form className="user-form" onSubmit={this.handleSubmit}>
                     <input onChange={this.handleChange} type="text" name="username" placeholder="Enter your username"></input>
                     <input onChange={this.handleChange} type="password" name="password" placeholder="Enter your password"></input>
                     <button className="button is-success">Log in</button>
                 </form>
-
             </div>
         )
     }
