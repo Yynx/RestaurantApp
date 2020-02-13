@@ -30,6 +30,7 @@ class App extends React.Component {
         loggedIn: false,
         username: null,
         signedUp: false,
+        match: null
     }
 
     refreshState = () => {
@@ -83,9 +84,10 @@ class App extends React.Component {
        const {searchLocation} = this.state; 
        axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${searchLocation}.json?access_token=pk.eyJ1IjoibGF3Y2FrZSIsImEiOiJjazZnb3c3enUwOTg1M2pwOHJmcXNjdnNyIn0.2R2s_StXtwU8C8jDiQAXnA`)
        .then(response => {
+           let match = response.data.features[0].place_name
            let longitude = response.data.features[0].center[0]
            let latitude = response.data.features[0].center[1]
-           this.setState({longitude: longitude, latitude: latitude, fetched: true})
+           this.setState({longitude: longitude, latitude: latitude, match: match, fetched: true})
        })
        .catch(error => this.setState({error: error}))
     }
@@ -145,7 +147,7 @@ class App extends React.Component {
                     <Favourites username={this.state.username} />
                 </Route>
                 <Route exact path="/">
-                    {this.state.submitted ? <Redirect to="/results" /> : <Find handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}
+                    {this.state.submitted ? <Redirect to="/results" /> : <Find match={this.state.match} handleChangeLocation={this.handleChangeLocation} handleChangeKeyword={this.handleChangeKeyword} getGeoPosition={this.getGeoPosition} handleSubmit={this.handleSubmit} />}
                 </Route>
                 </Switch>
             </div>

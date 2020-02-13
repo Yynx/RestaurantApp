@@ -18,7 +18,6 @@ class Find extends React.Component {
     }
     
     render() {
-        
         const backgroundImage = {
             backgroundImage: `url(${this.state.randomImage})`,
             backgroundColor: 'grey',
@@ -47,6 +46,7 @@ class Find extends React.Component {
                                 <span className="icon is-small is-left">
                                 <i class="fas fa-map-marked-alt"></i> 
                                 </span>
+                                <p>{this.props.match}</p>
                         </div>
                         </div>
                         <button className="button is-primary margin" name="search">Search</button>

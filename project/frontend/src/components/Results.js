@@ -10,7 +10,7 @@ class Results extends React.Component {
         mymap : null,
         layerGroup: null,
         sort: '',
-        order: '',
+        order: 'real_distance',
         cuisines: null,
         cuisine: ''
     }
@@ -142,6 +142,7 @@ class Results extends React.Component {
                 <div id="mapid"></div>
                 <div class="columns">
                 <aside class="menu column is-one-fifth">
+                    {this.props.searchKeyword && <h2>Showing results for {this.props.searchKeyword}</h2>}
                     <p class="menu-label">
                         Sort by:
                     </p>
@@ -167,9 +168,10 @@ class Results extends React.Component {
                     onClick={this.handleSortChange}                    
                     >distance</a></li>
                     </ul>
-                    <p class="menu-label">
+                    {this.state.sort !== "real_distance"  && <p class="menu-label">
                         Order by:
-                    </p>
+                    </p>}
+                    {this.state.sort !== "real_distance" &&
                     <ul class="menu-list">
                     <li><a
                     name=""
@@ -183,14 +185,14 @@ class Results extends React.Component {
                     name="desc"
                     onClick={this.handleOrderChange}
                     >high to low</a></li>
-                    </ul>
+                    </ul> }
                     {this.state.cuisines && <p class="menu-label">Cuisine:</p>}
                     {this.state.cuisines && cusineResults && <Cuisines 
                     cuisines={this.state.cuisines} cusineResults={cusineResults}
                     handleCuisineChange={this.handleCuisineChange} />}
                 </aside>
                 <div class="column">
-                {this.props.searchKeyword && <h2>Showing results for {this.props.searchKeyword}</h2>}
+                
                 {this.state.data && this.state.data.data.restaurants.map((restaurant) => { 
                     return (
                 <Restaurant res = {restaurant.restaurant} /> ) })}
