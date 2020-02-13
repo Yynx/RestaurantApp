@@ -47,9 +47,9 @@ class Restaurant extends React.Component {
                 <p>Has online delivery: {this.props.res.has_online_delivery}</p>
                 <p>Is delivering now: {this.props.res.is_delivering_now}</p>
                 <p>Highlights: {this.props.res.highlights.map((highlight) => highlight)}</p>
-                 <a onClick={() => this.handleClick()} >Show Photos</a> 
-                 {!this.state.showPhotos && <img src={this.props.res.photos[0].photo.thumb_url} alt={`${this.props.res.name}`}/>} 
-                {this.state.showPhotos && this.props.res.photos.map((photo, index) => {
+                 {this.props.res.photos && <a onClick={() => this.handleClick()} >Show Photos</a>}
+                 {!this.state.showPhotos && this.props.res.photos && <img src={this.props.res.photos[0].photo.thumb_url} alt={`${this.props.res.name}`}/>} 
+                {this.state.showPhotos  && this.props.res.photos.map((photo, index) => {
                  return (<img src={photo.photo.thumb_url} alt={`${this.props.res.name} ${index}`}/>)
                 })
                 } 
