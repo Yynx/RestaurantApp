@@ -51,7 +51,29 @@ i.fas.fa-map-marker-alt {
     font-size: 45px;
 }
 
-#mapid { height: 180px; }
+#mapid { 
+    height: 180px;
+}
+
+.sticky {
+    position: sticky;
+    top: 0px;
+}
+
+.z-index {
+    z-index: 100;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flex-info {
+    width: 200px;
+    padding: 5px;
+}
 
 /* loading animation */
 .loader-wrapper {

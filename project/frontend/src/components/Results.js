@@ -236,7 +236,9 @@ class Results extends React.Component {
        let cusineResults = this.filterByCuisine()
         return ( 
             <div>
-                <div id="mapid"></div>
+                <div className="sticky z-index">
+                    <div id="mapid"></div>
+                </div>
                 <div class="columns">
                 <aside class="menu column is-one-fifth">
                     {this.props.searchKeyword && <h2>Showing results for {this.props.searchKeyword}</h2>}
@@ -244,12 +246,6 @@ class Results extends React.Component {
                         Sort by:
                     </p>
                     <ul class="menu-list">
-                    <li>
-                    <a
-                    name=""
-                    onClick={this.handleSortChange}
-                    ></a>
-                    </li>
                     <li><a 
                     name="cost"
                     onClick={this.sortCostLowToHigh}
@@ -292,7 +288,10 @@ class Results extends React.Component {
                     return (
                 <Restaurant res = {restaurant.restaurant} /> ) })}
                 </div>
+
+                <div class="column is-one-fifth"></div>
                 </div>
+                
             </div>
         )
     }

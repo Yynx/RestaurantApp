@@ -37,24 +37,21 @@ class Restaurant extends React.Component {
                 <p class="card-header-title">
                 {this.props.res.name}
                 </p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-                </a>
                 </header>
                 <div class="card-content">
                 <div class="content">
-                <p>Location: {this.props.res.location.address}</p>
-                <p>Cuisines: {this.props.res.cuisines}</p>
+                <div class="flex">
+                <p className="flex-info">Location: {this.props.res.location.address}</p>
+                <p className="flex-info">Cuisines: {this.props.res.cuisines}</p>
+                <p className="flex-info">Cost for two: {this.props.res.currency}, {this.props.res.average_cost_for_two}</p>
+                <p className="flex-info">User ratings: {this.props.res.user_rating.aggregate_rating}</p>
+                <p className="flex-info">Has online delivery: {this.props.res.has_online_delivery}</p>
+                <p className="flex-info">Is delivering now: {this.props.res.is_delivering_now}</p>
+                <div class="tags">
+                {this.props.res.highlights.map((highlight) => {return <span className="tag">{highlight}</span>})}
+                </div>
+                </div>
                 <p>Opening hours: {this.props.res.timings}</p>
-                <p>Menu url: {this.props.res.menu_url}</p>
-                <p>Cost for two: {this.props.res.currency}, {this.props.res.average_cost_for_two}</p>
-                <p>Price range: {this.props.res.price_range}</p>
-                <p>User ratings: {this.props.res.user_rating.aggregate_rating}</p>
-                <p>Has online delivery: {this.props.res.has_online_delivery}</p>
-                <p>Is delivering now: {this.props.res.is_delivering_now}</p>
-                <p>Highlights: {this.props.res.highlights.map((highlight) => highlight)}</p>
                  {this.props.res.photos && <a onClick={() => this.handleClick()} >Show Photos</a>}
                  {!this.state.showPhotos && this.props.res.photos && <img src={this.props.res.photos[0].photo.thumb_url} alt={`${this.props.res.name}`}/>} 
                 {this.state.showPhotos  && this.props.res.photos.map((photo, index) => {
@@ -66,7 +63,6 @@ class Restaurant extends React.Component {
                 {this.state.error && <p>{this.state.error}</p>}
                 <footer class="card-footer">
                 <a onClick={this.saveToFavourites} class="card-footer-item">Add to Favourites</a>
-                
                 </footer>
 
         </div>
