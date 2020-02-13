@@ -11,6 +11,10 @@ body {
     height: 100vh
 }
 
+.card {
+    margin: 16px 0px;
+}
+
 .form {
     width: 100%;
     max-width: 900px;
@@ -68,11 +72,13 @@ i.fas.fa-map-marker-alt {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .flex-info {
     width: 200px;
-    padding: 5px;
+    padding: 16px;
+    text-align: center;
 }
 
 /* loading animation */
@@ -131,4 +137,29 @@ i.fas.fa-map-marker-alt {
         flex-wrap: wrap;
         justify-content: center
     }
+}
+
+.align-text {
+    text-align: center;
+}
+
+.padding-top {
+    padding-top: 16px;
+}
+
+.res-photos {
+    width: 150px;
+    height: auto;
+    margin: 8px;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error-msg {
+    color: red;
 }

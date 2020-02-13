@@ -240,7 +240,7 @@ class Results extends React.Component {
                     <div id="mapid"></div>
                 </div>
                 <div class="columns">
-                <aside class="menu column is-one-fifth">
+                <aside class="menu margin column is-one-fifth ">
                     {this.props.searchKeyword && <h2>Showing results for {this.props.searchKeyword}</h2>}
                     <p class="menu-label">
                         Sort by:
@@ -288,10 +288,8 @@ class Results extends React.Component {
                     return (
                 <Restaurant res = {restaurant.restaurant} /> ) })}
                 </div>
-
                 <div class="column is-one-fifth"></div>
                 </div>
-                
             </div>
         )
     }

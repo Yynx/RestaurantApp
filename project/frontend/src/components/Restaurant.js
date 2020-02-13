@@ -41,27 +41,36 @@ class Restaurant extends React.Component {
                 <div class="card-content">
                 <div class="content">
                 <div class="flex">
-                <p className="flex-info">Location: {this.props.res.location.address}</p>
-                <p className="flex-info">Cuisines: {this.props.res.cuisines}</p>
-                <p className="flex-info">Cost for two: {this.props.res.currency}, {this.props.res.average_cost_for_two}</p>
-                <p className="flex-info">User ratings: {this.props.res.user_rating.aggregate_rating}</p>
-                <p className="flex-info">Has online delivery: {this.props.res.has_online_delivery}</p>
-                <p className="flex-info">Is delivering now: {this.props.res.is_delivering_now}</p>
+                <p className="flex-info">Location<br/><b>{this.props.res.location.address}</b></p>
+                <p className="flex-info">Cuisines<br/><b>{this.props.res.cuisines}</b></p>
+                <p className="flex-info">Cost for two<br/><b>{this.props.res.currency}{this.props.res.average_cost_for_two}</b></p>
+                <p className="flex-info">User ratings<br/><b>{this.props.res.user_rating.aggregate_rating}</b></p>
+                <p className="flex-info">Has online delivery<br/>{this.props.res.has_online_delivery === 0 ? <i class="far fa-times-circle"></i> :<i class="far fa-check-circle"></i>}</p>
+                <p className="flex-info">Is delivering now<br/><b>{this.props.res.is_delivering_now  === 0 ?  <i class="far fa-times-circle"></i> :<i class="far fa-check-circle"></i>}</b></p>
+                <br/>
                 <div class="tags">
                 {this.props.res.highlights.map((highlight) => {return <span className="tag">{highlight}</span>})}
                 </div>
                 </div>
-                <p>Opening hours: {this.props.res.timings}</p>
-                 {this.props.res.photos && <a onClick={() => this.handleClick()} >Show Photos</a>}
-                 {!this.state.showPhotos && this.props.res.photos && <img src={this.props.res.photos[0].photo.thumb_url} alt={`${this.props.res.name}`}/>} 
+
+                <p className="align-text padding-top">Opening hours<br/><b>{this.props.res.timings}</b></p>
+                <div></div>
+                
+                <br/>
+                <div className="photo-gallery">
+            
+                 
+                 {!this.state.showPhotos && this.props.res.photos && <img className="res-photos" src={this.props.res.photos[0].photo.thumb_url} alt={`${this.props.res.name}`}/>} 
                 {this.state.showPhotos  && this.props.res.photos.map((photo, index) => {
-                 return (<img src={photo.photo.thumb_url} alt={`${this.props.res.name} ${index}`}/>)
+                 return (<img className="res-photos" src={photo.photo.thumb_url} alt={`${this.props.res.name} ${index}`}/>)
                 })
                 } 
                 </div>
                 </div>
-                {this.state.error && <p>{this.state.error}</p>}
+                </div>
+                {this.state.error && <p className="align-text error-msg">{this.state.error}</p>}
                 <footer class="card-footer">
+                {this.props.res.photos && <a class="card-footer-item" onClick={() => this.handleClick()} >Show Photos</a>}
                 <a onClick={this.saveToFavourites} class="card-footer-item">Add to Favourites</a>
                 </footer>
 
