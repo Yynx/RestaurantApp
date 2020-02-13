@@ -49,6 +49,7 @@ class Restaurant extends React.Component {
                 <p className="flex-info">Is delivering now<br/><b>{this.props.res.is_delivering_now  === 0 ?  <i class="far fa-times-circle"></i> :<i class="far fa-check-circle"></i>}</b></p>
                 <br/>
                 <div class="tags">
+                <span class="tag is-primary">Highlights</span>
                 {this.props.res.highlights.map((highlight) => {return <span className="tag">{highlight}</span>})}
                 </div>
                 </div>
