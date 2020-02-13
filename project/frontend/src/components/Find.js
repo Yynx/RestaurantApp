@@ -56,7 +56,6 @@ class Find extends React.Component {
 
                 </form>
             <div style={backgroundImage}>
-                <p>hi</p>
             </div>
             </div>
         )
