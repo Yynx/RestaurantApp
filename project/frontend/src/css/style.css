@@ -1,0 +1,201 @@
+body {
+    font-family: 'Roboto', 'Lato', sans-serif;
+}
+
+.flex-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh
+}
+
+.card {
+    margin: 16px 0px;
+}
+
+.form {
+    width: 100%;
+    max-width: 900px;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+
+
+.input-div {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+}
+
+.stretch {
+    width: 100%;
+    padding-left: 4px;
+}
+
+i.fas.fa-map-marker-alt {
+    padding-right: 4px;
+}
+
+.margin {
+    margin-left:4px;
+}
+
+.home-label {
+    font-size: 45px;
+}
+
+#mapid { 
+    height: 180px;
+}
+
+.sticky {
+    position: sticky;
+    top: 0px;
+}
+
+.z-index {
+    z-index: 100;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.flex-info {
+    width: 200px;
+    padding: 16px;
+    text-align: center;
+}
+
+.logout-card {
+    height: 100vh;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.width-30 {
+    width: 30%;
+}
+
+/* loading animation */
+.loader-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.loader-wrapper .loader {
+    height: 80px;
+    width: 80px;
+}
+
+.loader-wrapper .is-active {
+    opacity: 1;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 640px) {
+    .stretch {
+        margin: 4px 8px;
+    }
+
+    .input-div {
+        flex-wrap: wrap;
+        align-content: center
+    }
+
+    .home-label {
+        text-align: center;
+        margin: 10px;
+    }
+
+    .margin {
+        margin: 4px;
+    }
+
+    .form {
+        height: 100%;
+        justify-content: center;
+    }
+
+    .flex-row {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center
+    }
+}
+
+.align-text {
+    text-align: center;
+}
+
+.padding-top {
+    padding-top: 16px;
+}
+
+.res-photos {
+    width: 150px;
+    height: auto;
+    margin: 8px;
+}
+
+.photo-gallery {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.error-msg {
+    color: red;
+}
+
+.form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20vh;
+    height: 100vh;
+    width: 100%;
+}
+
+.user-form {
+    width: 100%;
+    max-width: 600px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.input-m {
+    margin: 8px 0px;
+}
